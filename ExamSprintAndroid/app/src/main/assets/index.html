@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ExamSprint – JEE &amp; NEET Test Series</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mu:#667085;--bd:#e3e6ee;--pr:#4f46e5;--prt:#fff;--ok:#12805c;--okb:#e3f6ee;--no:#c0352b;--nob:#fdeceb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1e29;--tx:#eceef5;--mu:#9aa1b5;--bd:#2c3040;--pr:#8b85ff;--prt:#12141c;--ok:#4cd6a0;--okb:#143228;--no:#ff8a80;--nob:#3a1d1b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1b1e29;--tx:#eceef5;--mu:#9aa1b5;--bd:#2c3040;--pr:#8b85ff;--prt:#12141c;--ok:#4cd6a0;--okb:#143228;--no:#ff8a80;--nob:#3a1d1b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.1rem;margin:0 0 .6em}
+.mu{color:var(--mu);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:999px;cursor:pointer;font:inherit}
+.chip.on{background:var(--pr);color:var(--prt);border-color:var(--pr)}
+.btn{background:var(--pr);color:var(--prt);border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.btn:disabled{opacity:.4;cursor:default}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer}
+.opt.sel{border-color:var(--pr);box-shadow:0 0 0 2px var(--pr) inset}
+.opt.ok{background:var(--okb);border-color:var(--ok)}.opt.no{background:var(--nob);border-color:var(--no)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tm{font-variant-numeric:tabular-nums;font-weight:700}
+.pal button{width:38px;height:38px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+.pal .a{background:var(--pr);color:var(--prt);border-color:var(--pr)}.pal .c{outline:2px solid var(--tx)}
+.big{font-size:2.4rem;font-weight:800}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{padding:8px;border-bottom:1px solid var(--bd);text-align:left;font-size:.92rem}
+.tag{font-size:.75rem;color:var(--mu)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const Q=[
+["Physics","Laws of Motion","Easy","SI unit of impulse?",["N·s","N/s","N·m","J·s"],0],
+["Physics","Kinematics","Easy","A body dropped from rest falls 20 m. Time taken (g = 10 m/s²)?",["1 s","2 s","3 s","4 s"],1],
+["Physics","Current Electricity","Easy","Equivalent resistance of 3 Ω and 6 Ω in parallel?",["2 Ω","9 Ω","4.5 Ω","18 Ω"],0],
+["Physics","Projectile Motion","Medium","Same speed, launch angles 30° and 60°. Ratio of ranges?",["1 : 1","1 : √3","√3 : 1","1 : 2"],0],
+["Physics","Work, Energy","Medium","Kinetic energy of a 2 kg body with momentum 10 kg·m/s?",["10 J","25 J","50 J","100 J"],1],
+["Physics","SHM","Hard","A particle in SHM (amplitude A, angular frequency ω) is at displacement A/2. Its speed is?",["ωA/2","√3·ωA/2","ωA","ωA/√2"],1],
+["Chemistry","Atomic Structure","Easy","Atomic number of carbon?",["4","6","8","12"],1],
+["Chemistry","Ionic Equilibrium","Easy","pH of 0.01 M HCl?",["1","2","3","12"],1],
+["Chemistry","Organic Basics","Medium","Hybridisation of carbon in ethene?",["sp","sp²","sp³","sp³d"],1],
+["Chemistry","Mole Concept","Medium","Moles in 11 g of CO₂ (M = 44 g/mol)?",["0.25","0.5","1","2"],0],
+["Chemistry","Chemical Bonding","Hard","Shape of XeF₄?",["Tetrahedral","See-saw","Square planar","Octahedral"],2],
+["Chemistry","Coordination","Hard","Spin-only magnetic moment of high-spin Fe³⁺?",["3.87 BM","4.90 BM","5.92 BM","1.73 BM"],2],
+["Maths","Differentiation","Easy","d/dx (sin x) = ?",["cos x","−cos x","−sin x","tan x"],0],
+["Maths","Quadratics","Easy","Sum of roots of x² − 5x + 6 = 0?",["−5","5","6","1"],1],
+["Maths","Integration","Medium","∫₀^π sin x dx = ?",["0","1","2","π"],2],
+["Maths","Permutations","Medium","Arrangements of the letters of LEVEL?",["30","60","120","15"],0],
+["Maths","Limits","Hard","lim x→0 (sin x − x)/x³ = ?",["−1/6","1/6","−1/3","0"],0],
+["Maths","Complex Numbers","Hard","If z = 1 + i, then |z⁸| = ?",["8","16","32","64"],1],
+["Biology","Cell Biology","Easy","Powerhouse of the cell?",["Ribosome","Mitochondria","Golgi body","Lysosome"],1],
+["Biology","Genetics","Easy","Normal human chromosome number?",["23","44","46","48"],2],
+["Biology","Molecular Biology","Medium","Enzyme that joins Okazaki fragments?",["DNA polymerase","Helicase","DNA ligase","Primase"],2],
+["Biology","Photosynthesis","Medium","Light reactions occur in the?",["Stroma","Thylakoid membrane","Outer membrane","Matrix"],1],
+["Biology","Evolution","Hard","If q² = 0.04 (Hardy–Weinberg), frequency of heterozygotes?",["0.16","0.32","0.64","0.04"],1],
+["Biology","Plant Reproduction","Hard","Ploidy of endosperm in angiosperms?",["n","2n","3n","4n"],2]
+];
+const EX={"JEE Main":["Physics","Chemistry","Maths"],"JEE Advanced":["Physics","Chemistry","Maths"],"NEET":["Physics","Chemistry","Biology"]};
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pk=a=>a[ri(0,a.length-1)],fa=k=>k<2?1:k*fa(k-1);
+function mk(s,ch,d,q,a,wr,u){const r=v=>Number(Number(v).toPrecision(4));let o=[r(a)];wr.forEach(w=>{w=r(w);if(!o.includes(w))o.push(w)});for(let k=2;o.length<4;k++){const w=r(a+k*.3*(Math.abs(a)||1));if(!o.includes(w))o.push(w)}o=sh(o.slice(0,4));return[s,ch,d,q,o.map(v=>v+(u?" "+u:"")),o.indexOf(r(a))]}
+const TP=[];const t=(s,ch,d,c,f)=>TP.push({s,ch,d,c,f:()=>f((q,a,w,u)=>mk(s,ch,d,q,a,w,u))});
+const P="Physics",C="Chemistry",M="Maths";
+t(P,"Kinematics","Easy",1890,m=>{const u=ri(0,20),a=ri(1,10),s=ri(2,10);return m(`A body starts at ${u} m/s and accelerates uniformly at ${a} m/s². Its velocity after ${s} s?`,u+a*s,[u+a,a*s,u+2*a*s],"m/s")});
+t(P,"Laws of Motion","Easy",300,m=>{const k=ri(1,20),a=ri(1,15);return m(`A force gives a ${k} kg mass an acceleration of ${a} m/s². The force is?`,k*a,[k+a,k/a,2*k*a],"N")});
+t(P,"Work, Energy","Medium",190,m=>{const k=ri(1,10),v=ri(2,20);return m(`Kinetic energy of a ${k} kg body moving at ${v} m/s?`,.5*k*v*v,[k*v*v,.5*k*v,k*v],"J")});
+t(P,"Current Electricity","Easy",54,m=>{const R=ri(2,10),I=ri(1,6),V=R*I;return m(`A ${V} V battery is connected across a ${R} Ω resistor. Current drawn?`,I,[V*R,V+R,2*I],"A")});
+t(P,"Current Electricity","Medium",361,m=>{const a=ri(2,20),b=ri(2,20);return m(`Equivalent resistance of ${a} Ω and ${b} Ω connected in parallel?`,a*b/(a+b),[a+b,(a+b)/2,2*a*b/(a+b)],"Ω")});
+t(P,"Projectile Motion","Medium",123,m=>{const u=ri(10,50),h=pk([30,45,60]),R=u*u*Math.sin(2*h*Math.PI/180)/10;return m(`A projectile is launched at ${u} m/s at ${h}° to the horizontal (g = 10 m/s²). Its range?`,R,[u*u*Math.sin(h*Math.PI/180)/10,u*u/20,2*R],"m")});
+t(P,"Work, Energy","Medium",104,m=>{const v=ri(5,30),u=pk([.1,.2,.25,.5]);return m(`A block sliding at ${v} m/s stops on a surface with μ = ${u} (g = 10 m/s²). Distance travelled?`,v*v/(20*u),[v*v/(10*u),v*v/(2*u),v/(10*u)],"m")});
+t(P,"Oscillations","Medium",9,m=>{const L=pk([.4,.9,1.6,2.5,3.6,4.9,6.4,8.1,10]);return m(`Time period of a simple pendulum of length ${L} m (g = 10 m/s²)?`,2*Math.PI*Math.sqrt(L/10),[2*Math.PI*Math.sqrt(L),Math.PI*Math.sqrt(L/10),2*Math.PI*Math.sqrt(10*L)],"s")});
+t(P,"Optics","Hard",750,m=>{const f=ri(10,30),d=f+ri(5,40);return m(`A convex lens of focal length ${f} cm forms an image of an object ${d} cm away. Image distance?`,d*f/(d-f),[d*f/(d+f),d-f,d+f],"cm")});
+t(P,"Capacitors","Hard",4700,m=>{const c=ri(2,50),v=ri(5,100);return m(`Energy stored in a ${c} μF capacitor charged to ${v} V?`,.5*c*v*v/1000,[c*v*v/1000,.5*c*v,.5*c*v*v],"mJ")});
+t(C,"Mole Concept","Easy",48,m=>{const x=pk([["NaCl",58.5],["H₂O",18],["CO₂",44],["CaCO₃",100],["NaOH",40],["H₂SO₄",98]]),n=pk([.5,1,1.5,2,2.5,3,4,5]);return m(`Moles of ${x[0]} in ${Number((n*x[1]).toFixed(2))} g (molar mass ${x[1]} g/mol)?`,n,[2*n,n/2,n+1],"mol")});
+t(C,"Ionic Equilibrium","Easy",36,m=>{const k=ri(1,6),c=pk([1,2,5]),b=ri(0,1),h=-Math.log10(c*10**-k),p=b?14-h:h;return m(`pH of a ${c}×10^−${k} M ${b?"NaOH":"HCl"} solution (strong, 25 °C)?`,p,[14-p,k,p+1],"")});
+t(C,"Solutions","Medium",5000,m=>{const a=ri(2,12),v=ri(10,100),b=ri(1,a-1);return m(`${v} mL of ${a} M solution is diluted to ${b} M. Final volume?`,a*v/b,[v*b/a,v+a-b,a*v],"mL")});
+t(C,"Gaseous State","Medium",1900,m=>{const p=ri(1,10),v=ri(2,20),q=ri(1,10);return m(`A gas at ${p} atm occupies ${v} L. At constant temperature, volume at ${q} atm?`,p*v/q,[q*v/p,v+p-q,p*v*q],"L")});
+t(C,"Stoichiometry","Medium",820,m=>{const a=ri(1,5)/10,v=ri(10,50),b=pk([.1,.2,.25,.5]);return m(`${v} mL of ${a} M HCl is neutralised by ${b} M NaOH. Volume of NaOH needed?`,a*v/b,[a*v*b,v*b/a,v+a/b],"mL")});
+t(C,"Chemical Kinetics","Hard",16,m=>{const a=pk([80,160,320,640]),n=ri(2,5);return m(`A first-order reaction starts with ${a} g of reactant. Amount left after ${n} half-lives?`,a/2**n,[a/n,a/2**(n-1),a/2**(n+1)],"g")});
+t(C,"Electrochemistry","Hard",510,m=>{const I=ri(1,10),k=ri(10,60),w=63.5*I*k*60/193000;return m(`Copper deposited by ${I} A passing for ${k} min through CuSO₄ (Cu = 63.5, F = 96500)?`,w,[2*w,w/2,63.5*I*k/193000],"g")});
+t(M,"Quadratics","Easy",81,m=>{const a=ri(1,9),b=ri(1,9);return m(`Difference of the roots (larger − smaller) of x² − ${a+b}x + ${a*b} = 0?`,Math.abs(a-b),[a+b,a*b,Math.abs(a-b)+1],"")});
+t(M,"Differentiation","Easy",128,m=>{const a=ri(2,9),n=ri(2,5),k=ri(1,4);return m(`If f(x) = ${a}x^${n}, then f′(${k}) = ?`,a*n*k**(n-1),[a*k**n,a*n*k**n,n*k**(n-1)],"")});
+t(M,"Integration","Medium",30,m=>{const a=3*ri(1,5),b=ri(1,6);return m(`∫ from 0 to ${b} of ${a}x² dx = ?`,a*b**3/3,[a*b*b,a*b**3,a*b**3/2],"")});
+t(M,"Sequences","Easy",2880,m=>{const a=ri(1,20),d=ri(1,9),n=ri(5,20);return m(`Sum of the first ${n} terms of an AP with first term ${a} and common difference ${d}?`,n*(2*a+(n-1)*d)/2,[n*(a+(n-1)*d),n*(2*a+n*d)/2,a+(n-1)*d],"")});
+t(M,"Permutations","Medium",24,m=>{const n=ri(5,12),r=ri(2,4),c=fa(n)/(fa(r)*fa(n-r));return m(`Number of ways to choose ${r} students from ${n}?`,c,[fa(n)/fa(n-r),c+n,2*c],"")});
+t(M,"Matrices","Easy",6561,m=>{const a=ri(1,9),b=ri(1,9),c=ri(1,9),d=ri(1,9);return m(`Determinant of the matrix [[${a}, ${b}], [${c}, ${d}]]?`,a*d-b*c,[a*d+b*c,a*d,b*c],"")});
+t(M,"Limits","Medium",81,m=>{const a=ri(1,9),b=ri(1,9);return m(`lim (x→0) sin(${a}x) / (${b}x) = ?`,a/b,[b/a,a*b,a/(b*b)],"")});
+t(M,"Complex Numbers","Hard",12,m=>{const z=pk([[3,4,5],[5,12,13],[6,8,10],[8,15,17]]),n=ri(2,4);return m(`If z = ${z[0]} + ${z[1]}i, then |z^${n}| = ?`,z[2]**n,[(z[0]+z[1])**n,z[2]*n,z[0]**n+z[1]**n],"")});
+t(M,"Circles","Medium",360,m=>{const r=ri(1,10),g=ri(1,6),f=ri(1,6),c=g*g+f*f-r*r;return m(`Radius of the circle x² + y² − ${2*g}x − ${2*f}y ${c<0?"− "+-c:"+ "+c} = 0?`,r,[r*r,g*g+f*f,r+1],"")});
+const BANK=TP.reduce((a,x)=>a+x.c,0)+Q.length;
+function build(){const out=[],seen=new Set();if(!S.subs.length)return[];const wd=S.exam=="JEE Advanced"?["Medium","Hard","Hard"]:["Easy","Medium","Medium","Hard"];
+for(let g=0;out.length<S.n&&g<S.n*30;g++){const s=S.subs[out.length%S.subs.length],d=S.diff=="Mixed"?pk(wd):S.diff;
+let tp=TP.filter(x=>x.s==s&&x.d==d),st=Q.filter(x=>x[0]==s&&x[2]==d),q;
+if(!tp.length&&!st.length){tp=TP.filter(x=>x.s==s);st=Q.filter(x=>x[0]==s)}
+q=tp.length&&(!st.length||Math.random()>.1)?pk(tp).f():st.length?pk(st):null;
+if(q&&!seen.has(q[3])){seen.add(q[3]);out.push(q)}}return out}
+const app=document.getElementById("app");
+let S={exam:"JEE Main",subs:["Physics","Chemistry","Maths"],diff:"Mixed",n:10},T=null,tick=null;
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const hist=()=>{try{return JSON.parse(localStorage.getItem("es_h")||"[]")}catch(e){return[]}};
+const save=h=>{try{localStorage.setItem("es_h",JSON.stringify(h.slice(0,5)))}catch(e){}};
+const pool=()=>Q.filter(q=>S.subs.includes(q[0])&&(S.diff=="Mixed"||q[2]==S.diff));
+const chip=(t,on,fn)=>`<button class="chip ${on?"on":""}" onclick="${fn}">${t}</button>`;
+
+function home(msg){
+  clearInterval(tick);
+  const h=hist();
+  app.innerHTML=`<h1>ExamSprint</h1><div class="mu">Test series for JEE Main, JEE Advanced and NEET</div>
+  <div class="card"><h2>1. Choose exam</h2><div class="row">${Object.keys(EX).map(e=>chip(e,S.exam==e,`setExam('${e}')`)).join("")}</div></div>
+  <div class="card"><h2>2. Syllabus (subjects)</h2><div class="row">${EX[S.exam].map(s=>chip(s,S.subs.includes(s),`togSub('${s}')`)).join("")}</div></div>
+  <div class="card"><h2>3. Difficulty</h2><div class="row">${["Easy","Medium","Hard","Mixed"].map(d=>chip(d,S.diff==d,`setD('${d}')`)).join("")}</div></div>
+  <div class="card"><h2>4. Questions</h2><div class="row">${[5,10,15,20].map(n=>chip(n,S.n==n,`setN(${n})`)).join("")}</div>
+  <p class="mu">Timer: 2 min per question. Marking: +4 correct, −1 wrong. Question bank: ${(Math.floor(BANK/1000)*1000).toLocaleString("en-IN")}+ unique question variants. New numbers every attempt.</p></div>
+  ${msg?`<p style="color:var(--no)">${msg}</p>`:""}
+  <button class="btn" onclick="start()">Start test</button>
+  ${h.length?`<div class="card"><h2>Recent tests</h2>${h.map(x=>`<div class="mu">${x.d} · ${x.exam} · <b>${x.s}/${x.m}</b></div>`).join("")}</div>`:""}`;
+}
+function setExam(e){S.exam=e;S.subs=EX[e].slice();home()}
+function togSub(s){S.subs=S.subs.includes(s)?S.subs.filter(x=>x!=s):S.subs.concat(s);home()}
+function setD(d){S.diff=d;home()}
+function setN(n){S.n=n;home()}
+
+function start(){
+  const p=build();
+  if(!p.length)return home("Pick at least one subject.");
+  T={qs:p,ans:p.map(()=>null),i:0,left:p.length*120};
+  tick=setInterval(()=>{T.left--;if(T.left<=0)submit();else{const el=document.getElementById("tm");if(el)el.textContent=fmt(T.left)}},1000);
+  test();
+}
+const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function test(){
+  const q=T.qs[T.i];
+  app.innerHTML=`<div class="top"><b>${S.exam}</b><span class="tm" id="tm">${fmt(T.left)}</span></div>
+  <div class="card"><div class="tag">Q${T.i+1} of ${T.qs.length} · ${q[0]} · ${q[1]} · ${q[2]}</div>
+  <h2 style="margin-top:6px">${q[3]}</h2>
+  ${q[4].map((o,k)=>`<button class="opt ${T.ans[T.i]===k?"sel":""}" onclick="pick(${k})">${"ABCD"[k]}. ${o}</button>`).join("")}
+  <div class="row" style="margin-top:8px"><button class="btn g" onclick="clr()">Clear</button></div></div>
+  <div class="card pal"><div class="row">${T.qs.map((_,k)=>`<button class="${T.ans[k]!==null?"a":""} ${k==T.i?"c":""}" onclick="go(${k})">${k+1}</button>`).join("")}</div></div>
+  <div class="top"><button class="btn g" onclick="go(T.i-1)" ${T.i==0?"disabled":""}>Previous</button>
+  ${T.i<T.qs.length-1?`<button class="btn" onclick="go(T.i+1)">Next</button>`:`<button class="btn" onclick="submit()">Submit test</button>`}</div>
+  <p class="mu" style="text-align:center"><a href="#" onclick="submit();return false" style="color:var(--mu)">Submit early</a></p>`;
+}
+function pick(k){T.ans[T.i]=k;test()}
+function clr(){T.ans[T.i]=null;test()}
+function go(k){if(k>=0&&k<T.qs.length){T.i=k;test()}}
+
+function submit(){
+  clearInterval(tick);
+  let c=0,w=0,u=0;const by={};
+  T.qs.forEach((q,i)=>{
+    const b=by[q[0]]=by[q[0]]||{c:0,w:0,u:0};
+    if(T.ans[i]===null){u++;b.u++}else if(T.ans[i]===q[5]){c++;b.c++}else{w++;b.w++}
+  });
+  const sc=c*4-w,mx=T.qs.length*4;
+  const h=hist();h.unshift({d:new Date().toLocaleDateString(),exam:S.exam,s:sc,m:mx});save(h);
+  app.innerHTML=`<h1>Result</h1>
+  <div class="card"><div class="big">${sc}<span class="mu"> / ${mx}</span></div>
+  <div class="mu">${c} correct · ${w} wrong · ${u} skipped · Accuracy ${c+w?Math.round(c/(c+w)*100):0}%</div></div>
+  <div class="card tw"><h2>Subject-wise</h2><table><tr><th>Subject</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th></tr>
+  ${Object.keys(by).map(s=>`<tr><td>${s}</td><td>${by[s].c}</td><td>${by[s].w}</td><td>${by[s].u}</td><td>${by[s].c*4-by[s].w}</td></tr>`).join("")}</table></div>
+  <h2>Review</h2>
+  ${T.qs.map((q,i)=>`<div class="card"><div class="tag">Q${i+1} · ${q[0]} · ${q[1]} · ${q[2]}</div><b>${q[3]}</b>
+  ${q[4].map((o,k)=>`<div class="opt ${k==q[5]?"ok":T.ans[i]===k?"no":""}">${"ABCD"[k]}. ${o}${k==q[5]?" ✓":T.ans[i]===k?" ✗ (your answer)":""}</div>`).join("")}
+  ${T.ans[i]===null?'<div class="mu">Not attempted</div>':""}</div>`).join("")}
+  <div class="row"><button class="btn" onclick="start()">Retake new set</button><button class="btn g" onclick="home()">Back to home</button></div>`;
+  window.scrollTo(0,0);
+}
+home();
+</script>
+</body>
+</html>
